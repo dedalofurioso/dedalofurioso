@@ -1,53 +1,27 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendario Eventi - Sito Azienda</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" /> <!-- Layout base -->
-    <link rel="stylesheet" href="calendario/calendario.css" /> <!-- Stili specifici per la pagina calendario -->
-
-    <link rel="manifest" href="/provasito2/manifest.json" />
-    <meta name="theme-color" content="#000000" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Layout base -->
+    <link rel="stylesheet" href="calendario/calendario.css"> <!-- Stili specifici per la pagina calendario -->
     <script src="script.js" defer></script>
     <script src="calendario/calendario.js" defer></script> <!-- Script specifici per la pagina calendario -->
-    <script src="header.js" defer></script> <!-- Aggiunto JS per caricare l'header dinamico -->
-    <script src="footer.js" defer></script> <!-- Aggiunto JS per caricare il footer dinamico -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="header.js" defer></script>  <!-- Aggiunto JS per caricare l'header dinamico -->
+    <script src="footer.js" defer></script>  <!-- Aggiunto JS per caricare il footer dinamico -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Header dinamico -->
-    <header id="header"></header> <!-- Caricamento dinamico tramite JS -->
+    <header id="header"></header>  <!-- Caricamento dinamico tramite JS -->
 
     <!-- Main Content -->
     <main>
-        <section class="intro" style="display: flex; align-items: center; gap: 10px; flex-direction: column; align-items: flex-start;">
-            <h2 style="margin: 0;">Calendario Eventi</h2>
-            <button
-                id="install-btn"
-                style="
-                    padding: 8px 16px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    border: none;
-                    border-radius: 25px;
-                    background: linear-gradient(90deg, #ff6a00, #ee0979);
-                    color: white;
-                    box-shadow: 0 4px 10px rgba(238, 9, 121, 0.4);
-                    transition: background 0.3s ease, transform 0.2s ease;
-                "
-                onmouseover="this.style.background='linear-gradient(90deg, #ee0979, #ff6a00)'; this.style.transform='scale(1.05)';"
-                onmouseout="this.style.background='linear-gradient(90deg, #ff6a00, #ee0979)'; this.style.transform='scale(1)';"
-            >
-                Scarica l'app del calendario eventi
-            </button>
-            <div id="install-message" style="margin-top:8px; color: #ee0979; font-weight: 600; display: none;">
-                Se l’installazione non parte, usa il menu del browser ‘Aggiungi a schermata Home’
-            </div>
+        <section class="intro">
+            <h2>Calendario Eventi</h2>
+            <p>Scopri gli eventi in programma per il mese corrente.</p>
         </section>
 
         <!-- Calendario -->
@@ -55,7 +29,7 @@
             <!-- Pulsanti per mese precedente e mese successivo -->
             <button id="prev-month" class="prev-next" disabled>Mese Precedente</button>
             <button id="next-month" class="prev-next">Mese Successivo</button>
-
+            
             <!-- Titolo del mese -->
             <h2 id="calendar-title">Caricamento...</h2>
 
@@ -68,43 +42,6 @@
     </main>
 
     <!-- Footer dinamico -->
-    <footer id="footer"></footer> <!-- Caricamento dinamico tramite JS -->
-
-    <script>
-        // Registrazione Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/provasito2/sw.js').catch((err) => {
-                console.warn('Service Worker non registrato:', err);
-            });
-        }
-
-        let deferredPrompt;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            // Mostro il bottone solo se il prompt è disponibile
-            document.getElementById('install-btn').style.display = 'inline-block';
-            // Nascondo il messaggio di istruzioni
-            document.getElementById('install-message').style.display = 'none';
-        });
-
-        document.getElementById('install-btn').addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log('Scelta utente:', outcome);
-                deferredPrompt = null;
-                // Nascondo il bottone dopo scelta
-                document.getElementById('install-btn').style.display = 'none';
-                // Nascondo anche il messaggio
-                document.getElementById('install-message').style.display = 'none';
-            } else {
-                // Mostro messaggio personalizzato se il prompt non è disponibile o app già installata
-                const msg = document.getElementById('install-message');
-                msg.style.display = 'block';
-            }
-        });
-    </script>
+    <footer id="footer"></footer>  <!-- Caricamento dinamico tramite JS -->
 </body>
 </html>
